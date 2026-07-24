@@ -1,0 +1,42 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.ALL;
+
+entity sbox is
+    port (
+        input_byte  : in  std_logic_vector(7 downto 0);
+        output_byte : out std_logic_vector(7 downto 0)
+    );
+end entity sbox;
+
+architecture rtl of sbox is
+
+    type sbox_array is array (0 to 255) of std_logic_vector(7 downto 0);
+
+    constant SBOX : sbox_array := (
+        16#00# => x"63",
+        16#01# => x"7C",
+        16#02# => x"77",
+        16#03# => x"7B",
+        16#04# => x"F2",
+        16#05# => x"6B",
+        16#06# => x"6F",
+        16#07# => x"C5",
+		  16#08# => x"C5",
+		  16#09# => x"C5",
+		  16#0A# => x"C5",
+		  16#0B# => x"C5",
+		  16#0C# => x"C5",
+		  16#0D# => x"C5",
+		  16#0E# => x"C5",
+		  16#0F# => x"C5",
+
+
+        16#FF# => x"16"
+    );
+
+begin
+
+    output_byte <= SBOX(to_integer(unsigned(input_byte)));
+
+end architecture rtl;

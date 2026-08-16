@@ -1,0 +1,13 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+entity porta_and_tb is -- Testbench não possui portas
+end porta_and_tb;
+architecture porta_and_tb_arch of porta_and_tb is
+component porta_and is
+port ( A : in STD_LOGIC;
+B : in STD_LOGIC;
+S : out STD_LOGIC );
+end component ;
+signal a_tb, b_tb, s_tb : std_logic;
+begin
+dut: porta_and port map ( A => a_tb, B => b_tb, S => s_tb );

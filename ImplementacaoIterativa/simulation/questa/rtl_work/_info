@@ -1,0 +1,95 @@
+m255
+K4
+z2
+!s11e vcom 2020.1 2020.02, Feb 28 2020
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dC:/Projetos/AES-fpga-IC/ImplementacaoIterativa/simulation/questa
+Esbox
+Z1 w1786838647
+Z2 DPx4 ieee 11 numeric_std 0 22 aU^R8eGcicLcUFIaBQSL>3
+Z3 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
+Z4 DPx4 ieee 14 std_logic_1164 0 22 cVAk:aDinOX8^VGI1ekP<3
+!i122 0
+R0
+Z5 8C:/Projetos/AES-fpga-IC/ImplementacaoIterativa/rtl/sbox.vhd
+Z6 FC:/Projetos/AES-fpga-IC/ImplementacaoIterativa/rtl/sbox.vhd
+l0
+L5 1
+VJRX7e9?VL1H_CFjYMRK6C2
+!s100 RDeaS?SkL2HPEPGfGNG<A1
+Z7 OV;C;2020.1;71
+31
+Z8 !s110 1786840656
+!i10b 1
+Z9 !s108 1786840656.000000
+Z10 !s90 -reportprogress|300|-93|-work|work|C:/Projetos/AES-fpga-IC/ImplementacaoIterativa/rtl/sbox.vhd|
+Z11 !s107 C:/Projetos/AES-fpga-IC/ImplementacaoIterativa/rtl/sbox.vhd|
+!i113 1
+Z12 o-93 -work work
+Z13 tExplicit 1 CvgOpt 0
+Asbox_arch
+R2
+R3
+R4
+DEx4 work 4 sbox 0 22 JRX7e9?VL1H_CFjYMRK6C2
+!i122 0
+l293
+L12 286
+Vn?Ez<EW;cO>bAao^zzheS0
+!s100 ^OS:<C;cnMUI@3lXnK3oj1
+R7
+31
+R8
+!i10b 1
+R9
+R10
+R11
+!i113 1
+R12
+R13
+Esbox_tb
+Z14 w1786840269
+R3
+R4
+!i122 1
+R0
+Z15 8C:/Projetos/AES-fpga-IC/ImplementacaoIterativa/tb/sbox_tb.vhd
+Z16 FC:/Projetos/AES-fpga-IC/ImplementacaoIterativa/tb/sbox_tb.vhd
+l0
+L4 1
+VfLKI]?P9XOSQ^>YY5RB9?0
+!s100 HnWdNP9>PBo7`EXfB2hZB0
+R7
+31
+Z17 !s110 1786840657
+!i10b 1
+R9
+Z18 !s90 -reportprogress|300|-93|-work|work|C:/Projetos/AES-fpga-IC/ImplementacaoIterativa/tb/sbox_tb.vhd|
+!s107 C:/Projetos/AES-fpga-IC/ImplementacaoIterativa/tb/sbox_tb.vhd|
+!i113 1
+R12
+R13
+Asbox_tb_arch
+R3
+R4
+DEx4 work 7 sbox_tb 0 22 fLKI]?P9XOSQ^>YY5RB9?0
+!i122 1
+l18
+L7 35
+Vae0Q`E9aSIXYX7^@KfHeS2
+!s100 ceaVQZK]RDcN5eb11>TFn0
+R7
+31
+R17
+!i10b 1
+R9
+R18
+Z19 !s107 C:/Projetos/AES-fpga-IC/ImplementacaoIterativa/tb/sbox_tb.vhd|
+!i113 1
+R12
+R13

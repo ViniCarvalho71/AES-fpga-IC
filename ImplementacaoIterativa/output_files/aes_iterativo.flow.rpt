@@ -1,5 +1,5 @@
 Flow report for aes_iterativo
-Sat Aug 15 21:36:53 2026
+Sun Aug 30 19:45:41 2026
 Quartus Prime Version 23.1std.1 Build 993 05/14/2024 SC Lite Edition
 
 
@@ -41,10 +41,10 @@ https://fpgasoftware.intel.com/eula.
 +-------------------------------------------------------------------------------------+
 ; Flow Summary                                                                        ;
 +------------------------------------+------------------------------------------------+
-; Flow Status                        ; Successful - Sat Aug 15 21:36:53 2026          ;
+; Flow Status                        ; Successful - Sun Aug 30 19:45:41 2026          ;
 ; Quartus Prime Version              ; 23.1std.1 Build 993 05/14/2024 SC Lite Edition ;
 ; Revision Name                      ; aes_iterativo                                  ;
-; Top-level Entity Name              ; sbox                                           ;
+; Top-level Entity Name              ; MixColumns                                     ;
 ; Family                             ; MAX 10                                         ;
 ; Device                             ; 10M08DAF484C8G                                 ;
 ; Timing Models                      ; Final                                          ;
@@ -67,37 +67,45 @@ https://fpgasoftware.intel.com/eula.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 08/15/2026 21:36:46 ;
+; Start date & time ; 08/30/2026 19:45:33 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; aes_iterativo       ;
 +-------------------+---------------------+
 
 
-+------------------------------------------------------------------------------------------------------------------------------+
-; Flow Non-Default Global Settings                                                                                             ;
-+--------------------------------------+----------------------------------------+---------------+-------------+----------------+
-; Assignment Name                      ; Value                                  ; Default Value ; Entity Name ; Section Id     ;
-+--------------------------------------+----------------------------------------+---------------+-------------+----------------+
-; COMPILER_SIGNATURE_ID                ; 2546206559018.178684060603356          ; --            ; --          ; --             ;
-; EDA_DESIGN_INSTANCE_NAME             ; NA                                     ; --            ; --          ; sbox_tb        ;
-; EDA_NATIVELINK_SIMULATION_TEST_BENCH ; sbox_tb                                ; --            ; --          ; eda_simulation ;
-; EDA_OUTPUT_DATA_FORMAT               ; Verilog Hdl                            ; --            ; --          ; eda_simulation ;
-; EDA_SIMULATION_TOOL                  ; QuestaSim (Verilog)                    ; <None>        ; --          ; --             ;
-; EDA_TEST_BENCH_ENABLE_STATUS         ; TEST_BENCH_MODE                        ; --            ; --          ; eda_simulation ;
-; EDA_TEST_BENCH_FILE                  ; tb/sbox_tb.vhd                         ; --            ; --          ; sbox_tb        ;
-; EDA_TEST_BENCH_MODULE_NAME           ; sbox_tb                                ; --            ; --          ; sbox_tb        ;
-; EDA_TEST_BENCH_NAME                  ; sbox_tb                                ; --            ; --          ; eda_simulation ;
-; EDA_TIME_SCALE                       ; 1 ps                                   ; --            ; --          ; eda_simulation ;
-; MAX_CORE_JUNCTION_TEMP               ; 85                                     ; --            ; --          ; --             ;
-; MIN_CORE_JUNCTION_TEMP               ; 0                                      ; --            ; --          ; --             ;
-; PARTITION_COLOR                      ; -- (Not supported for targeted family) ; --            ; sbox        ; Top            ;
-; PARTITION_FITTER_PRESERVATION_LEVEL  ; -- (Not supported for targeted family) ; --            ; sbox        ; Top            ;
-; PARTITION_NETLIST_TYPE               ; -- (Not supported for targeted family) ; --            ; sbox        ; Top            ;
-; POWER_BOARD_THERMAL_MODEL            ; None (CONSERVATIVE)                    ; --            ; --          ; --             ;
-; POWER_PRESET_COOLING_SOLUTION        ; 23 MM HEAT SINK WITH 200 LFPM AIRFLOW  ; --            ; --          ; --             ;
-; PROJECT_OUTPUT_DIRECTORY             ; output_files                           ; --            ; --          ; --             ;
-; TOP_LEVEL_ENTITY                     ; sbox                                   ; aes_iterativo ; --          ; --             ;
-+--------------------------------------+----------------------------------------+---------------+-------------+----------------+
++-------------------------------------------------------------------------------------------------------------------------------------+
+; Flow Non-Default Global Settings                                                                                                    ;
++--------------------------------------+----------------------------------------+---------------+-------------+-----------------------+
+; Assignment Name                      ; Value                                  ; Default Value ; Entity Name ; Section Id            ;
++--------------------------------------+----------------------------------------+---------------+-------------+-----------------------+
+; COMPILER_SIGNATURE_ID                ; 2546206559018.178812993318408          ; --            ; --          ; --                    ;
+; EDA_DESIGN_INSTANCE_NAME             ; NA                                     ; --            ; --          ; SubBytes_ShiftRows_tb ;
+; EDA_DESIGN_INSTANCE_NAME             ; NA                                     ; --            ; --          ; MixColumns_tb         ;
+; EDA_DESIGN_INSTANCE_NAME             ; NA                                     ; --            ; --          ; sbox_tb               ;
+; EDA_NATIVELINK_SIMULATION_TEST_BENCH ; MixColumns_tb                          ; --            ; --          ; eda_simulation        ;
+; EDA_OUTPUT_DATA_FORMAT               ; Verilog Hdl                            ; --            ; --          ; eda_simulation        ;
+; EDA_SIMULATION_TOOL                  ; QuestaSim (Verilog)                    ; <None>        ; --          ; --                    ;
+; EDA_TEST_BENCH_ENABLE_STATUS         ; TEST_BENCH_MODE                        ; --            ; --          ; eda_simulation        ;
+; EDA_TEST_BENCH_FILE                  ; tb/SubBytes_ShiftRows_tb.vhd           ; --            ; --          ; SubBytes_ShiftRows_tb ;
+; EDA_TEST_BENCH_FILE                  ; tb/MixColumns_tb.vhd                   ; --            ; --          ; MixColumns_tb         ;
+; EDA_TEST_BENCH_FILE                  ; tb/sbox_tb.vhd                         ; --            ; --          ; sbox_tb               ;
+; EDA_TEST_BENCH_MODULE_NAME           ; SubBytes_ShiftRows_tb                  ; --            ; --          ; SubBytes_ShiftRows_tb ;
+; EDA_TEST_BENCH_MODULE_NAME           ; MixColumns_tb                          ; --            ; --          ; MixColumns_tb         ;
+; EDA_TEST_BENCH_MODULE_NAME           ; sbox_tb                                ; --            ; --          ; sbox_tb               ;
+; EDA_TEST_BENCH_NAME                  ; sbox_tb                                ; --            ; --          ; eda_simulation        ;
+; EDA_TEST_BENCH_NAME                  ; SubBytes_ShiftRows_tb                  ; --            ; --          ; eda_simulation        ;
+; EDA_TEST_BENCH_NAME                  ; MixColumns_tb                          ; --            ; --          ; eda_simulation        ;
+; EDA_TIME_SCALE                       ; 1 ps                                   ; --            ; --          ; eda_simulation        ;
+; MAX_CORE_JUNCTION_TEMP               ; 85                                     ; --            ; --          ; --                    ;
+; MIN_CORE_JUNCTION_TEMP               ; 0                                      ; --            ; --          ; --                    ;
+; PARTITION_COLOR                      ; -- (Not supported for targeted family) ; --            ; MixColumns  ; Top                   ;
+; PARTITION_FITTER_PRESERVATION_LEVEL  ; -- (Not supported for targeted family) ; --            ; MixColumns  ; Top                   ;
+; PARTITION_NETLIST_TYPE               ; -- (Not supported for targeted family) ; --            ; MixColumns  ; Top                   ;
+; POWER_BOARD_THERMAL_MODEL            ; None (CONSERVATIVE)                    ; --            ; --          ; --                    ;
+; POWER_PRESET_COOLING_SOLUTION        ; 23 MM HEAT SINK WITH 200 LFPM AIRFLOW  ; --            ; --          ; --                    ;
+; PROJECT_OUTPUT_DIRECTORY             ; output_files                           ; --            ; --          ; --                    ;
+; TOP_LEVEL_ENTITY                     ; MixColumns                             ; aes_iterativo ; --          ; --                    ;
++--------------------------------------+----------------------------------------+---------------+-------------+-----------------------+
 
 
 +----------------------------------------------------------------------------------------------------------------------------+
@@ -105,8 +113,8 @@ https://fpgasoftware.intel.com/eula.
 +------------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name            ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +------------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Elaboration ; 00:00:08     ; 1.0                     ; 4796 MB             ; 00:00:17                           ;
-; Total                  ; 00:00:08     ; --                      ; --                  ; 00:00:17                           ;
+; Analysis & Elaboration ; 00:00:08     ; 1.0                     ; 4796 MB             ; 00:00:18                           ;
+; Total                  ; 00:00:08     ; --                      ; --                  ; 00:00:18                           ;
 +------------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 

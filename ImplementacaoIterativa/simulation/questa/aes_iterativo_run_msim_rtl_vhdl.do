@@ -44,11 +44,12 @@ if {[file exists rtl_work]} {
 vlib rtl_work
 vmap work rtl_work
 
-vcom -93 -work work {C:/Projetos/AES-fpga-IC/ImplementacaoIterativa/rtl/sbox.vhd}
+vcom -93 -work work {C:/Projetos/AES-fpga-IC/ImplementacaoIterativa/aes_package.vhd}
+vcom -93 -work work {C:/Projetos/AES-fpga-IC/ImplementacaoIterativa/rtl/MixColumns.vhd}
 
-vcom -93 -work work {C:/Projetos/AES-fpga-IC/ImplementacaoIterativa/tb/sbox_tb.vhd}
+vcom -93 -work work {C:/Projetos/AES-fpga-IC/ImplementacaoIterativa/tb/MixColumns_tb.vhd}
 
-vsim -t 1ps -L altera -L lpm -L sgate -L altera_mf -L altera_lnsim -L fiftyfivenm -L rtl_work -L work -voptargs="+acc"  sbox_tb
+vsim -t 1ps -L altera -L lpm -L sgate -L altera_mf -L altera_lnsim -L fiftyfivenm -L rtl_work -L work -voptargs="+acc"  MixColumns_tb
 
 add wave *
 view structure

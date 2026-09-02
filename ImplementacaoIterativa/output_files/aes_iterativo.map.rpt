@@ -1,5 +1,5 @@
 Analysis & Elaboration report for aes_iterativo
-Sun Aug 30 19:45:41 2026
+Wed Sep  2 18:15:30 2026
 Quartus Prime Version 23.1std.1 Build 993 05/14/2024 SC Lite Edition
 
 
@@ -37,7 +37,7 @@ https://fpgasoftware.intel.com/eula.
 +-------------------------------------------------------------------------------------+
 ; Analysis & Elaboration Summary                                                      ;
 +------------------------------------+------------------------------------------------+
-; Analysis & Elaboration Status      ; Successful - Sun Aug 30 19:45:41 2026          ;
+; Analysis & Elaboration Status      ; Successful - Wed Sep  2 18:15:30 2026          ;
 ; Quartus Prime Version              ; 23.1std.1 Build 993 05/14/2024 SC Lite Edition ;
 ; Revision Name                      ; aes_iterativo                                  ;
 ; Top-level Entity Name              ; MixColumns                                     ;
@@ -164,7 +164,7 @@ https://fpgasoftware.intel.com/eula.
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Elaboration
     Info: Version 23.1std.1 Build 993 05/14/2024 SC Lite Edition
-    Info: Processing started: Sun Aug 30 19:45:33 2026
+    Info: Processing started: Wed Sep  2 18:15:20 2026
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off aes_iterativo -c aes_iterativo --analysis_and_elaboration
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 12 of the 12 processors detected
@@ -185,13 +185,22 @@ Info (12021): Found 2 design units, including 1 entities, in source file tb/subb
     Info (12023): Found entity 1: SubBytes_ShiftRows_tb File: C:/Projetos/AES-fpga-IC/ImplementacaoIterativa/tb/SubBytes_ShiftRows_tb.vhd Line: 11
 Info (12021): Found 2 design units, including 0 entities, in source file aes_package.vhd
     Info (12022): Found design unit 1: aes_package File: C:/Projetos/AES-fpga-IC/ImplementacaoIterativa/aes_package.vhd Line: 5
-    Info (12022): Found design unit 2: aes_package-body File: C:/Projetos/AES-fpga-IC/ImplementacaoIterativa/aes_package.vhd Line: 27
+    Info (12022): Found design unit 2: aes_package-body File: C:/Projetos/AES-fpga-IC/ImplementacaoIterativa/aes_package.vhd Line: 30
 Info (12021): Found 2 design units, including 1 entities, in source file rtl/mixcolumns.vhd
     Info (12022): Found design unit 1: MixColumns-MixColumns_arch File: C:/Projetos/AES-fpga-IC/ImplementacaoIterativa/rtl/MixColumns.vhd Line: 21
     Info (12023): Found entity 1: MixColumns File: C:/Projetos/AES-fpga-IC/ImplementacaoIterativa/rtl/MixColumns.vhd Line: 8
 Info (12021): Found 2 design units, including 1 entities, in source file tb/mixcolumns_tb.vhd
-    Info (12022): Found design unit 1: MixColumns_tb-tb File: C:/Projetos/AES-fpga-IC/ImplementacaoIterativa/tb/MixColumns_tb.vhd Line: 13
-    Info (12023): Found entity 1: MixColumns_tb File: C:/Projetos/AES-fpga-IC/ImplementacaoIterativa/tb/MixColumns_tb.vhd Line: 9
+    Info (12022): Found design unit 1: MixColumns_tb-sim File: C:/Projetos/AES-fpga-IC/ImplementacaoIterativa/tb/MixColumns_tb.vhd Line: 10
+    Info (12023): Found entity 1: MixColumns_tb File: C:/Projetos/AES-fpga-IC/ImplementacaoIterativa/tb/MixColumns_tb.vhd Line: 7
+Info (12021): Found 2 design units, including 1 entities, in source file rtl/keyschedule.vhd
+    Info (12022): Found design unit 1: KeySchedule-KeySchedule_arch File: C:/Projetos/AES-fpga-IC/ImplementacaoIterativa/rtl/KeySchedule.vhd Line: 20
+    Info (12023): Found entity 1: KeySchedule File: C:/Projetos/AES-fpga-IC/ImplementacaoIterativa/rtl/KeySchedule.vhd Line: 7
+Info (12021): Found 2 design units, including 1 entities, in source file rtl/keyschedules_fsm.vhd
+    Info (12022): Found design unit 1: KeySchedule_FSM-KeySchedule_FSM_arch File: C:/Projetos/AES-fpga-IC/ImplementacaoIterativa/rtl/KeySchedules_FSM.vhd Line: 21
+    Info (12023): Found entity 1: KeySchedule_FSM File: C:/Projetos/AES-fpga-IC/ImplementacaoIterativa/rtl/KeySchedules_FSM.vhd Line: 8
+Info (12021): Found 2 design units, including 1 entities, in source file tb/keyschedules_tb.vhd
+    Info (12022): Found design unit 1: KeySchedule_tb-sim File: C:/Projetos/AES-fpga-IC/ImplementacaoIterativa/tb/KeySchedules_tb.vhd Line: 10
+    Info (12023): Found entity 1: KeySchedule_tb File: C:/Projetos/AES-fpga-IC/ImplementacaoIterativa/tb/KeySchedules_tb.vhd Line: 7
 Info (12127): Elaborating entity "MixColumns" for the top level hierarchy
 Info (10008): Verilog HDL or VHDL information: EDA Netlist Writer cannot regroup multidimensional array "data_in" into its bus
 Info (10008): Verilog HDL or VHDL information: EDA Netlist Writer cannot regroup multidimensional array "data_out" into its bus
@@ -199,8 +208,8 @@ Info (10008): Verilog HDL or VHDL information: EDA Netlist Writer cannot regroup
 Info (10008): Verilog HDL or VHDL information: EDA Netlist Writer cannot regroup multidimensional array "data_out" into its bus
 Info: Quartus Prime Analysis & Elaboration was successful. 0 errors, 1 warning
     Info: Peak virtual memory: 4796 megabytes
-    Info: Processing ended: Sun Aug 30 19:45:41 2026
-    Info: Elapsed time: 00:00:08
-    Info: Total CPU time (on all processors): 00:00:18
+    Info: Processing ended: Wed Sep  2 18:15:30 2026
+    Info: Elapsed time: 00:00:10
+    Info: Total CPU time (on all processors): 00:00:21
 
 

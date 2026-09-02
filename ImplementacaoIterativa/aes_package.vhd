@@ -11,6 +11,9 @@ package aes_package is
 
 		type generic_memory is array (integer range <>) of std_logic_vector(7 downto 0);
 		type matrix_128 is array (integer range <>) of matrix(3 downto 0, 3 downto 0);
+		constant Rcon_const : generic_memory(9 downto 0) := (
+		X"01", X"02", X"04", X"08", X"10", X"20", X"40", X"80", X"1b", X"36"
+	);
 		
 		function matrix2row(mat : in matrix; row : in integer) return generic_memory;
 		function matrix2column(mat : in matrix; column : in integer) return generic_memory;
@@ -120,10 +123,10 @@ package body aes_package is
 				out_column(2) := column(0);
 				out_column(3) := column(1);
 			when 3 =>
-				out_column(3) := column(0);
-				out_column(2) := column(1);
-				out_column(1) := column(2);
 				out_column(0) := column(3);
+				out_column(1) := column(0);
+				out_column(2) := column(1);
+				out_column(3) := column(2);
 			when others =>
 				out_column := column;
 		end case;

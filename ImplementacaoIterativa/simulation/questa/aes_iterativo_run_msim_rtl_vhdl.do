@@ -44,12 +44,17 @@ if {[file exists rtl_work]} {
 vlib rtl_work
 vmap work rtl_work
 
+vcom -93 -work work {C:/Projetos/AES-fpga-IC/ImplementacaoIterativa/rtl/sbox.vhd}
 vcom -93 -work work {C:/Projetos/AES-fpga-IC/ImplementacaoIterativa/aes_package.vhd}
+vcom -93 -work work {C:/Projetos/AES-fpga-IC/ImplementacaoIterativa/rtl/SubBytes_ShiftRows.vhd}
 vcom -93 -work work {C:/Projetos/AES-fpga-IC/ImplementacaoIterativa/rtl/MixColumns.vhd}
+vcom -93 -work work {C:/Projetos/AES-fpga-IC/ImplementacaoIterativa/rtl/KeySchedule.vhd}
+vcom -93 -work work {C:/Projetos/AES-fpga-IC/ImplementacaoIterativa/rtl/KeySchedules_FSM.vhd}
+vcom -93 -work work {C:/Projetos/AES-fpga-IC/ImplementacaoIterativa/rtl/Encrypt_FSM.vhd}
 
-vcom -93 -work work {C:/Projetos/AES-fpga-IC/ImplementacaoIterativa/tb/KeySchedules_tb.vhd}
+vcom -93 -work work {C:/Projetos/AES-fpga-IC/ImplementacaoIterativa/tb/SubBytes_ShiftRows_tb.vhd}
 
-vsim -t 1ps -L altera -L lpm -L sgate -L altera_mf -L altera_lnsim -L fiftyfivenm -L rtl_work -L work -voptargs="+acc"  KeySchedule_tb
+vsim -t 1ps -L altera -L lpm -L sgate -L altera_mf -L altera_lnsim -L fiftyfivenm -L rtl_work -L work -voptargs="+acc"  SubBytes_ShiftRows_tb
 
 add wave *
 view structure

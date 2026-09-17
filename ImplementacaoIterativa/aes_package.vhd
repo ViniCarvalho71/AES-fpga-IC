@@ -1,156 +1,124 @@
-library ieee;
-use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.ALL;
 
 package aes_package is
 
-    type matrix is array (
-        integer range <>,
-        integer range <>
-    ) of std_logic_vector(7 downto 0);
+    subtype byte is std_logic_vector(7 downto 0);
+    type byte_column is array (3 downto 0) of byte;
+    type matrix is array (3 downto 0, 3 downto 0) of byte;
+    type matrix_128 is array (natural range <>) of matrix;
+    type expanded_key_array is array (0 to 43) of byte;
 
-		type generic_memory is array (integer range <>) of std_logic_vector(7 downto 0);
-		type matrix_128 is array (integer range <>) of matrix(3 downto 0, 3 downto 0);
-		constant Rcon_const : generic_memory(9 downto 0) := (
-		X"01", X"02", X"04", X"08", X"10", X"20", X"40", X"80", X"1b", X"36"
-	);
-		
-		function matrix2row(mat : in matrix; row : in integer) return generic_memory;
-		function matrix2column(mat : in matrix; column : in integer) return generic_memory;
-		function column2matrix(C0, C1, C2, C3 : in generic_memory) return matrix;
+    type rcon_array is array (0 to 10) of byte;
+    constant RCON : rcon_array := (
+        x"00", x"01", x"02", x"04", x"08", x"10", x"20", x"40", x"80", x"1b", x"36"
+    );
 
-		function column_modulo_mul(column : in generic_memory) return std_logic_vector;
-		function column_rotate(column : in generic_memory; rotation : in integer) return generic_memory;
-		function "XOR"(L, R : matrix) return matrix;
-		function "XOR"(L, R : generic_memory) return generic_memory;
-		function xtime(byte : std_logic_vector(7 downto 0)) return std_logic_vector;
-		
+    -- Funções explícitas de XOR (evitam qualquer conflito de Use Clause)
+    function byte_xor (l, r : byte) return byte;
+    function column_xor (l, r : byte_column) return byte_column;
+    function matrix_xor (l, r : matrix) return matrix;
+
+    -- Funções auxiliares
+    function column2matrix(C0, C1, C2, C3 : in byte_column) return matrix;
+    function matrix2column(M : in matrix; c : integer) return byte_column;
+    function column_rotate(col : in byte_column; shift : integer) return byte_column;
+    function gmul(a, b : in byte) return byte;
+    function mix_single_column(col : in byte_column) return byte_column;
+
 end package aes_package;
 
 package body aes_package is
 
-	function xtime(byte : std_logic_vector(7 downto 0))
-	return std_logic_vector is
+    function byte_xor (l, r : byte) return byte is
+        variable res : byte;
+    begin
+        for i in 7 downto 0 loop
+            res(i) := l(i) xor r(i);
+        end loop;
+        return res;
+    end function byte_xor;
 
-		 variable result : std_logic_vector(7 downto 0);
+    function column_xor (l, r : byte_column) return byte_column is
+        variable res : byte_column;
+    begin
+        for i in 3 downto 0 loop
+            res(i) := byte_xor(l(i), r(i));
+        end loop;
+        return res;
+    end function column_xor;
 
-	begin
+    function matrix_xor (l, r : matrix) return matrix is
+        variable res : matrix; -- Removido (3 downto 0, 3 downto 0)
+    begin
+        for i in 3 downto 0 loop
+            for j in 3 downto 0 loop
+                res(i, j) := byte_xor(l(i, j), r(i, j));
+            end loop;
+        end loop;
+        return res;
+    end function matrix_xor;
 
-		 if byte(7) = '1' then
-			  result := (byte(6 downto 0) & '0') XOR x"1B";
-		 else
-			  result := byte(6 downto 0) & '0';
-		 end if;
+    function column2matrix(C0, C1, C2, C3 : in byte_column) return matrix is
+        variable out_matrix : matrix; -- Removido (3 downto 0, 3 downto 0)
+    begin
+        for i in 3 downto 0 loop
+            out_matrix(i, 0) := C0(i);
+            out_matrix(i, 1) := C1(i);
+            out_matrix(i, 2) := C2(i);
+            out_matrix(i, 3) := C3(i);
+        end loop;
+        return out_matrix;
+    end function column2matrix;
 
-		 return result;
+    function matrix2column(M : in matrix; c : integer) return byte_column is
+        variable col : byte_column;
+    begin
+        for i in 3 downto 0 loop
+            col(i) := M(i, c);
+        end loop;
+        return col;
+    end function matrix2column;
 
-	end xtime;
-	
-	function matrix2row(mat : in matrix; row : in integer) return generic_memory is
-		variable mem_out : generic_memory(3 downto 0);
-	begin
-		for I in 0 to 3 loop
-			mem_out(I) := mat(I, row);
-		end loop;
-		return mem_out;
-	end matrix2row;
+    function column_rotate(col : in byte_column; shift : integer) return byte_column is
+        variable res : byte_column;
+    begin
+        for i in 3 downto 0 loop
+            res(i) := col((i + shift) mod 4);
+        end loop;
+        return res;
+    end function column_rotate;
 
-	function matrix2column(mat : in matrix; column : in integer) return generic_memory is
-		variable mem_out : generic_memory(3 downto 0);
-	begin
-		for I in 0 to 3 loop
-			mem_out(I) := mat(column, I);
-		end loop;
-		return mem_out;
-	end matrix2column;
+    function gmul(a, b : in byte) return byte is
+        variable p : byte := (others => '0');
+        variable hi_bit : std_logic;
+        variable a_v, b_v : byte;
+    begin
+        a_v := a;
+        b_v := b;
+        for i in 0 to 7 loop
+            if (b_v(0) = '1') then
+                p := byte_xor(p, a_v);
+            end if;
+            hi_bit := a_v(7);
+            a_v := std_logic_vector(unsigned(a_v) sll 1);
+            if (hi_bit = '1') then
+                a_v := byte_xor(a_v, x"1b");
+            end if;
+            b_v := std_logic_vector(unsigned(b_v) srl 1);
+        end loop;
+        return p;
+    end function gmul;
 
-	function column2matrix(C0, C1, C2, C3 : in generic_memory) return matrix is
-		variable out_matrix : matrix(3 downto 0, 3 downto 0);
-	begin
-		for I in 0 to 3 loop
-			out_matrix(0, I) := C0(I);
-		end loop;
-
-		for I in 0 to 3 loop
-			out_matrix(1, I) := C1(I);
-		end loop;
-
-		for I in 0 to 3 loop
-			out_matrix(2, I) := C2(I);
-		end loop;
-
-		for I in 0 to 3 loop
-			out_matrix(3, I) := C3(I);
-		end loop;
-
-		return out_matrix;
-	end column2matrix;
-
-		function column_modulo_mul(column : in generic_memory)
-		return std_logic_vector is
-
-			 variable out_byte : std_logic_vector(7 downto 0);
-
-		begin
-
-			 out_byte :=
-				  xtime(column(0))
-				  XOR
-				  xtime(column(1))
-				  XOR
-				  column(1)
-				  XOR
-				  column(2)
-				  XOR
-				  column(3);
-
-			 return out_byte;
-
-		end column_modulo_mul;
-
-	function column_rotate(column : in generic_memory; rotation : in integer) return generic_memory is
-		variable out_column : generic_memory(3 downto 0);
-	begin
-		case rotation is
-			when 1 =>
-				out_column(0) := column(1);
-				out_column(1) := column(2);
-				out_column(2) := column(3);
-				out_column(3) := column(0);
-			when 2 =>
-				out_column(0) := column(2);
-				out_column(1) := column(3);
-				out_column(2) := column(0);
-				out_column(3) := column(1);
-			when 3 =>
-				out_column(0) := column(3);
-				out_column(1) := column(0);
-				out_column(2) := column(1);
-				out_column(3) := column(2);
-			when others =>
-				out_column := column;
-		end case;
-		return out_column;
-	end column_rotate;
-
-	function "XOR"(L, R : matrix) return matrix is
-		variable out_matrix : matrix(L'range(1), L'range(2));
-	begin
-		for I in L'range(1) loop
-			for J in L'range(2) loop
-				out_matrix(I, J) := L(I, J) XOR R(I, J);
-			end loop;
-		end loop;
-		return out_matrix;
-	end "XOR";
-
-	function "XOR"(L, R : generic_memory) return generic_memory is
-		variable out_memory : generic_memory(L'range);
-	begin
-		for I in L'range loop
-			out_memory(I) := L(I) XOR R(I);
-		end loop;
-		return out_memory;
-	end "XOR";
+    function mix_single_column(col : in byte_column) return byte_column is
+        variable res : byte_column;
+    begin
+        res(0) := byte_xor(byte_xor(byte_xor(gmul(x"02", col(0)), gmul(x"03", col(1))), col(2)), col(3));
+        res(1) := byte_xor(byte_xor(byte_xor(col(0), gmul(x"02", col(1))), gmul(x"03", col(2))), col(3));
+        res(2) := byte_xor(byte_xor(byte_xor(col(0), col(1)), gmul(x"02", col(2))), gmul(x"03", col(3)));
+        res(3) := byte_xor(byte_xor(byte_xor(gmul(x"03", col(0)), col(1)), col(2)), gmul(x"02", col(3)));
+        return res;
+    end function mix_single_column;
 
 end package body aes_package;

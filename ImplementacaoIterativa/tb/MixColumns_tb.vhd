@@ -24,8 +24,8 @@ architecture sim of MixColumns_tb is
     signal rst      : std_logic := '1';
     signal start    : std_logic := '0';
     signal done     : std_logic;
-    signal data_in  : matrix(3 downto 0, 3 downto 0);
-    signal data_out : matrix(3 downto 0, 3 downto 0);
+    signal data_in  : matrix(0 to 3, 0 to 3);
+    signal data_out : matrix(0 to 3, 0 to 3);
 
     constant CLK_PERIOD : time := 10 ns;
 
@@ -107,10 +107,10 @@ begin
 
         wait for 1 ns;
 
-        -- data_out(linha, coluna) comparado com EXPECTED_OUTPUT(linha, coluna)
+        -- data_out(col, row) comparado com EXPECTED_OUTPUT(row, col)
         for row in 0 to 3 loop
             for col in 0 to 3 loop
-                if data_out(row, col) /= EXPECTED_OUTPUT(row, col) then
+                if data_out(col, row) /= EXPECTED_OUTPUT(row, col) then
                     errors := errors + 1;
                     report "ERRO em data_out(linha=" & integer'image(row) & ", coluna=" & integer'image(col) & ")"
                         severity error;
